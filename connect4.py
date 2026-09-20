@@ -41,6 +41,21 @@ def ficha_(tabuleiro, coluna, jogador):
     return -1 
 
 # ===========================
+# COLUNA
+# ===========================
+
+def validar_coluna(tabuleiro, coluna):
+
+    # Verifica se a coluna está dentro do tabuleiro 
+    if coluna < 0 or coluna >= COLUNAS:
+        return False
+    # Se a primeira posição estiver preenchida,
+    # a coluna está cheia
+    if tabuleiro[0][coluna] != VAZIO:
+        return False
+    return True
+
+# ===========================
 # VERIFICAR VITÓRIA
 # ===========================
 def verificar_vitoria(tabuleiro, jogador):
@@ -102,4 +117,8 @@ def verificar_empate(tabuleiro):
             return False
     # Deu empate
     return True
+
+# ===========================
+# JOGAR
+# ===========================
 
