@@ -1,4 +1,5 @@
 # O jogo começa aqui!
+from colorama import Fore, init
 
 # ===========================
 # CONSTANTES DO JOGO
@@ -8,8 +9,8 @@
 LINHAS = 6
 COLUNAS = 7
 VAZIO = "   "
-VERMELHO = "V" 
-AMARELO = "A"
+VERMELHO = Fore.RED + "V" 
+AMARELO = Fore.YELLOW + "A"
 # ===========================
 # TABULEIRO
 # ===========================
