@@ -121,4 +121,37 @@ def verificar_empate(tabuleiro):
 # ===========================
 # JOGAR
 # ===========================
+def jogar():
 
+    tabuleiro = criartabuleiro()
+    jogador = VERMELHO
+
+    while True:
+
+        exibir_tabuleiro(tabuleiro)
+        print(f"\nVez do jogador: {jogador}")
+
+        try:
+            coluna = int(input("Escolha uma coluna (1-7): ")) - 1
+
+        except ValueError:
+
+            print("Digite um número válido!")
+            continue
+        
+        if not validar_coluna(tabuleiro, coluna):
+            print("Coluna inválida ou cheia!")
+            continue
+
+        ficha_(tabuleiro, coluna, jogador)
+
+        if verificar_vitoria(tabuleiro, jogador):
+            exibir_tabuleiro(tabuleiro)
+            print(f"\nJogador {jogador} venceu!")
+            break
+
+        if verificar_empate(tabuleiro):
+            exibir_tabuleiro(tabuleiro)
+            print("\nO jogo terminou em empate!")
+            break
+        jogador = alternar_jogador(jogador)
