@@ -1,6 +1,7 @@
 # O jogo começa aqui!
 from colorama import Fore, init
 
+init(autoreset=True)
 # ===========================
 # CONSTANTES DO JOGO
 # ===========================
@@ -41,6 +42,18 @@ def ficha_(tabuleiro, coluna, jogador):
         
     return -1 
 
+# ==========================================
+# ALTERNAR JOGADOR
+# ==========================================
+
+
+def alternar_jogador(jogador):
+
+    if jogador == VERMELHO:
+        return AMARELO
+
+    else:
+        return VERMELHO
 # ===========================
 # COLUNA
 # ===========================
@@ -156,3 +169,10 @@ def jogar():
             print("\nO jogo terminou em empate!")
             break
         jogador = alternar_jogador(jogador)
+
+
+# ==========================================
+# MAIN
+# ==========================================
+
+jogar()
