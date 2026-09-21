@@ -1,4 +1,5 @@
 # O jogo começa aqui!
+from colorama import Fore
 
 # ===========================
 # CONSTANTES DO JOGO
@@ -7,12 +8,65 @@
 # Linhas e Colunas do tabuleiro são sempre constantes!
 LINHAS = 6
 COLUNAS = 7
-VAZIO = ""
-
+VAZIO = "   "
+VERMELHO = Fore.RED + " V " + Fore.RESET
+AMARELO = Fore.YELLOW + " A " + Fore.RESET
 # ===========================
-# FUNÇÕES
+# TABULEIRO
 # ===========================
 
+
+def criartabuleiro():
+    tabuleiro = [[VAZIO] * COLUNAS for linhas in range (LINHAS)]
+    return tabuleiro
+
+
+
+def exibir_tabuleiro(tabuleiro):
+    print("\n  1   2   3   4   5   6   7")
+    for linha in tabuleiro:
+        print("|" + "|".join(linha) + "|")
+
+
+
+def ficha_(tabuleiro, coluna, jogador):
+
+    for linha in range(LINHAS -1, -1, -1):
+
+        if tabuleiro [linha][coluna] == VAZIO:
+
+            tabuleiro [linha][coluna] = jogador
+
+            return linha
+        
+    
+
+# ==========================================
+# ALTERNAR JOGADOR
+# ==========================================
+
+
+def alternar_jogador(jogador):
+
+    if jogador == VERMELHO:
+        return AMARELO
+
+    else:
+        return VERMELHO
+# ===========================
+# COLUNA
+# ===========================
+
+def validar_coluna(tabuleiro, coluna):
+
+    # Verifica se a coluna está dentro do tabuleiro 
+    if coluna < 0 or coluna >= COLUNAS:
+        return False
+    # Se a primeira posição estiver preenchida,
+    # a coluna está cheia
+    if tabuleiro[0][coluna] != VAZIO:
+        return False
+    return True
 
 # ===========================
 # VERIFICAR VITÓRIA
@@ -76,3 +130,48 @@ def verificar_empate(tabuleiro):
             return False
     # Deu empate
     return True
+
+# ===========================
+# JOGAR
+# ===========================
+def jogar():
+
+    tabuleiro = criartabuleiro()
+    jogador = VERMELHO
+
+    while True:
+
+        exibir_tabuleiro(tabuleiro)
+        print(f"\nVez do jogador: {jogador}")
+
+        try:
+            coluna = int(input("Escolha uma coluna (1-7): ")) - 1
+
+        except ValueError:
+
+            print("Digite um número válido!")
+            continue
+        
+        if not validar_coluna(tabuleiro, coluna):
+            print("Coluna inválida ou cheia!")
+            continue
+
+        ficha_(tabuleiro, coluna, jogador)
+
+        if verificar_vitoria(tabuleiro, jogador):
+            exibir_tabuleiro(tabuleiro)
+            print(f"\nJogador {jogador} venceu!")
+            break
+
+        if verificar_empate(tabuleiro):
+            exibir_tabuleiro(tabuleiro)
+            print("\nO jogo terminou em empate!")
+            break
+        jogador = alternar_jogador(jogador)
+
+
+# ==========================================
+# MAIN
+# ==========================================
+
+jogar()
