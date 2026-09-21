@@ -1,22 +1,23 @@
-# O jogo começa aqui!
 from colorama import Fore
 
 # ===========================
 # CONSTANTES DO JOGO
 # ===========================
 
-# Linhas e Colunas do tabuleiro são sempre constantes!
+# Linhas e Colunas do tabuleiro são sempre constantes
 LINHAS = 6
 COLUNAS = 7
 VAZIO = "   "
 VERMELHO = Fore.RED + " V " + Fore.RESET
 AMARELO = Fore.YELLOW + " A " + Fore.RESET
+
 # ===========================
 # TABULEIRO
 # ===========================
 
 
 def criartabuleiro():
+    # Cria o tabuleiro usando uma lista de listas
     tabuleiro = [[VAZIO] * COLUNAS for linhas in range (LINHAS)]
     return tabuleiro
 
@@ -24,22 +25,22 @@ def criartabuleiro():
 
 def exibir_tabuleiro(tabuleiro):
     print("\n  1   2   3   4   5   6   7")
+    # Percorre cada linha do tabuleiro
     for linha in tabuleiro:
+        # Junta os espaços da linha usando "|" para separar
         print("|" + "|".join(linha) + "|")
 
 
-
-def ficha_(tabuleiro, coluna, jogador):
-
+def ficha(tabuleiro, coluna, jogador):
+     # Começa pela última linha do tabuleiro para colocar a ficha no espaço mais baixo disponível
     for linha in range(LINHAS -1, -1, -1):
-
+        # Verifica se o espaço escolhido está vazio
         if tabuleiro [linha][coluna] == VAZIO:
-
+            # Coloca a ficha do jogador nesse espaço    
             tabuleiro [linha][coluna] = jogador
-
+            # Retorna a linha onde a ficha foi colocada
             return linha
         
-    
 
 # ==========================================
 # ALTERNAR JOGADOR
@@ -50,12 +51,13 @@ def alternar_jogador(jogador):
 
     if jogador == VERMELHO:
         return AMARELO
-
     else:
         return VERMELHO
+    
 # ===========================
 # COLUNA
 # ===========================
+
 
 def validar_coluna(tabuleiro, coluna):
 
@@ -68,9 +70,11 @@ def validar_coluna(tabuleiro, coluna):
         return False
     return True
 
+
 # ===========================
 # VERIFICAR VITÓRIA
 # ===========================
+
 def verificar_vitoria(tabuleiro, jogador):
 
     # Definição das direções
@@ -80,7 +84,6 @@ def verificar_vitoria(tabuleiro, jogador):
         (1, 1),    # Diagonal descendente - A linha se desloca para baixo uma casa (1) e a coluna se desloca uma casa para a direita (1): REPRESENTAÇÃO => \
         (1, -1)    # Diagonal ascendente - A linha se desloca para baixo uma casa (1) e a coluna se desloca uma casa para a esquerda (-1): REPRESENTAÇÃO => /
     ]
-
     # Laço duplo que percorre as 42 posições do tabuleiro da esquerda para a direita e de cima a baixo
     for linha in range(LINHAS):
         for coluna in range(COLUNAS):
@@ -106,11 +109,9 @@ def verificar_vitoria(tabuleiro, jogador):
                     ):
                         # Começa a perceber uma sequência
                         contador += 1
-
                     else:
                         # Senão quebra o laço e muda a direção redefinido os deslocamentos
                         break
-
                 if contador == 4:
                     # Se o contador chegar a 4 significa que há 4 posições consecutivas em que o jogador analisado colocou as fichas = VITÒRIA
                     return True
@@ -120,6 +121,7 @@ def verificar_vitoria(tabuleiro, jogador):
 # ===========================
 # VERIFICAR EMPATE
 # ===========================
+
 def verificar_empate(tabuleiro):
     # Laço que percorre apenas as colunas
     for coluna in range(COLUNAS):
@@ -131,38 +133,32 @@ def verificar_empate(tabuleiro):
     # Deu empate
     return True
 
+
 # ===========================
 # JOGAR
 # ===========================
+
 def jogar():
 
     tabuleiro = criartabuleiro()
     jogador = VERMELHO
 
     while True:
-
         exibir_tabuleiro(tabuleiro)
         print(f"\nVez do jogador: {jogador}")
-
         try:
             coluna = int(input("Escolha uma coluna (1-7): ")) - 1
-
         except ValueError:
-
             print("Digite um número válido!")
             continue
-        
         if not validar_coluna(tabuleiro, coluna):
             print("Coluna inválida ou cheia!")
             continue
-
-        ficha_(tabuleiro, coluna, jogador)
-
+        ficha(tabuleiro, coluna, jogador)
         if verificar_vitoria(tabuleiro, jogador):
             exibir_tabuleiro(tabuleiro)
             print(f"\nJogador {jogador} venceu!")
             break
-
         if verificar_empate(tabuleiro):
             exibir_tabuleiro(tabuleiro)
             print("\nO jogo terminou em empate!")
