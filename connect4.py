@@ -8,8 +8,8 @@ from colorama import Fore
 LINHAS = 6
 COLUNAS = 7
 VAZIO = "   "
-VERMELHO = Fore.RED + " V " + Fore.RESET
-AMARELO = Fore.YELLOW + " A " + Fore.RESET
+VERMELHO = Fore.RED + " @ " + Fore.RESET
+AMARELO = Fore.YELLOW + " @ " + Fore.RESET
 
 # ===========================
 # TABULEIRO
