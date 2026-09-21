@@ -1,7 +1,6 @@
 # O jogo começa aqui!
-from colorama import Fore, init
+from colorama import Fore
 
-init(autoreset=True)
 # ===========================
 # CONSTANTES DO JOGO
 # ===========================
@@ -10,15 +9,15 @@ init(autoreset=True)
 LINHAS = 6
 COLUNAS = 7
 VAZIO = "   "
-VERMELHO = Fore.RED + "V" 
-AMARELO = Fore.YELLOW + "A"
+VERMELHO = Fore.RED + " V " + Fore.RESET
+AMARELO = Fore.YELLOW + " A " + Fore.RESET
 # ===========================
 # TABULEIRO
 # ===========================
 
 
 def criartabuleiro():
-    tabuleiro = [[VAZIO] * 7 for linhas in range (LINHAS)]
+    tabuleiro = [[VAZIO] * COLUNAS for linhas in range (LINHAS)]
     return tabuleiro
 
 
@@ -40,7 +39,7 @@ def ficha_(tabuleiro, coluna, jogador):
 
             return linha
         
-    return -1 
+    
 
 # ==========================================
 # ALTERNAR JOGADOR
